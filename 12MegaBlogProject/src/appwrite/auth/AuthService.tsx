@@ -74,5 +74,6 @@ class AuthService {
         }
     }
 }
+export type { CreateAccountParams, LoginParams };
 
 export default new AuthService();

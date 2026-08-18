@@ -3,6 +3,11 @@ import Footer from './Footer/Footer'
 import GlobalErrorBoundary from './GlobalErrorBoundary'
 import LogoutBtn from './LogoutBtn'
 import Protected from './AuthLayout'
+import Button from './Button'
+import Select from './Select'
+import Logo from './Logo'
+import AuthLayout from './AuthLayout'
+import Input from './Input'
 
 
 export { 
@@ -10,6 +15,10 @@ export {
     Footer,
     GlobalErrorBoundary,
     Protected,
-    LogoutBtn
-    
+    LogoutBtn,
+    AuthLayout,
+    Button,
+    Input,
+    Logo,
+    Select    
 }
