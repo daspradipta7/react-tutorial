@@ -1,7 +1,7 @@
 import { Client, Storage, Permission, Role, ID } from "appwrite";
 import { config } from "../../config/config";
 
-class PostService {
+class PostStorageService {
     private client: Client;
     private storage: Storage
 
@@ -53,6 +53,15 @@ class PostService {
             throw error;
         }
     }
+
+    getFilePreview(fileId: string){
+        return this.storage.getFilePreview(
+            {
+                bucketId: config.APPWRITE_BUCKET_ID,
+                fileId: fileId
+            }
+        )
+    }
 }
 
-export default new PostService
+export default new PostStorageService()
