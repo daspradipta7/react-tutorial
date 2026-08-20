@@ -1,6 +1,6 @@
 import { Client, TablesDB, ID, Permission, Role, Query } from "appwrite";
 import { config, tableConfig, articleStatus } from "../../config/config";
-import { Post } from "../../types/post";
+import type { Post } from "../../types/post";
 
 class PostService {
     private client: Client;

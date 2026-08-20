@@ -2,7 +2,6 @@ import React, { useId } from 'react'
 
 export type Option = { 
     value: string | number; 
-    label: React.ReactNode 
 }
 
 export type SelectProps = {
@@ -25,7 +24,7 @@ function Select({ options = [], label, className = '', id, ...props }: SelectPro
             <select id={selectId} ref={ref} className={className} {...props}>
                 {options.map((option) => (
                     <option key={String(option.value)} value={option.value}>
-                        {option.label}
+                        {option.value}
                     </option>
                 ))}
             </select>

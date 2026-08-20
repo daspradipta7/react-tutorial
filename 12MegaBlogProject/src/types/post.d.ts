@@ -1,7 +1,9 @@
 interface Post {
     id: string | undefined;
     title: string;
-    featuredImage: string;
+    slug: string;
+    featuredImage: string | null;
+    content: string;
     status: string;
     isActive: boolean;
     createdAt: string;
