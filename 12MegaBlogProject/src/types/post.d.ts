@@ -1,5 +1,7 @@
-interface Post {
-    id: string | undefined;
+import type { Models } from "appwrite";
+
+interface Post extends Models.Row {
+    $id: string | null;
     title: string;
     slug: string;
     featuredImage: string | null;

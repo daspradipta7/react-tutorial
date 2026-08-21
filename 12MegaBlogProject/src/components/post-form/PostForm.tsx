@@ -9,17 +9,9 @@ import { articleStatus } from '../../config/config'
 import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import PostService from '../../appwrite/database/PostService'
+import type { Post } from '../../types/post'
 
-interface PostFormValues {
-    featuredImage: string | null;
-    title: string;
-    slug: string;
-    content: string;
-    status: string;
-    $id: string
-}
-
-function PostForm({ post }: { post: PostFormValues}) {
+function PostForm({ post = null }: { post?: Post | null}) {
     const { handleSubmit, register, setValue, control, getValues } = useForm({
         defaultValues: {
             title: post?.title || "",

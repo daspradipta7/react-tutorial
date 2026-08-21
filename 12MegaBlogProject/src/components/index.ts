@@ -8,7 +8,11 @@ import Select from './Select'
 import Logo from './Logo'
 import AuthLayout from './AuthLayout'
 import Input from './Input'
-
+import Container from './Container'
+import Login from './Login'
+import Signup from './Signup'
+import PostForm from './post-form/PostForm'
+import PostCard from './PostCard'
 
 export { 
     Header, 
@@ -20,5 +24,10 @@ export {
     Button,
     Input,
     Logo,
-    Select    
+    Select,
+    Container,
+    Login,
+    Signup,
+    PostForm,
+    PostCard
 }
