@@ -21,6 +21,7 @@ class PostService {
                 rowId: ID.unique(),
                 data: {
                     title: params.title,
+                    content: params.content,
                     featuredImage: params.featuredImage,
                     status: articleStatus.DRAFT,
                     isActive: params.isActive,
