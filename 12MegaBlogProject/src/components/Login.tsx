@@ -73,7 +73,7 @@ function Login() {
                                 validate: {
                                     minLength: (value: string) => value.length >= 6 || 'Password must be at least 6 characters long',
                                     maxLength: (value: string) => value.length <= 20 || 'Password must be at most 20 characters long',
-                                    matchPattern: (value: string) => /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/.test(value) || 'Password must contain at least one letter and one number'
+                                    matchPattern: (value: string) => /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){8,16}$/.test(value) || 'Password must contain at least one letter and one number'
                                 }
 
                             })

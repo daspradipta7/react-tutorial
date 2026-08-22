@@ -2,14 +2,11 @@ import React from 'react'
 import Logo from './Logo'
 import { Link, useNavigate } from 'react-router-dom'
 import { Button, Input } from './index'
-import { useDispatch } from 'react-redux'
 import authService, { type CreateAccountParams } from '../appwrite/auth/AuthService'
-import { login as authLogin } from '../store/authSlice'
 import { useForm } from 'react-hook-form'
 
 function Signup() {
     const [error, setError] = React.useState<string | null>(null)
-    const dispatch = useDispatch()
     const navigate = useNavigate()
     const { register, handleSubmit } = useForm<CreateAccountParams>()
 
@@ -19,12 +16,7 @@ function Signup() {
             const session = await authService.createAccount(data)
 
             if (session) {
-                const user = await authService.getUserSession()
-
-                if (user) {
-                    dispatch(authLogin(user))
-                    navigate('/')
-                }
+                 navigate('/login')
             }
         } catch (error: unknown) {
             setError((error as Error).message || 'Something went wrong. Please try again.')
@@ -68,7 +60,7 @@ function Signup() {
                                 validate: {
                                     minLength: (value: string) => value.length >= 6 || 'Password must be at least 6 characters long',
                                     maxLength: (value: string) => value.length <= 20 || 'Password must be at most 20 characters long',
-                                    matchPattern: (value: string) => /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/.test(value) || 'Password must contain at least one letter and one number'
+                                    matchPattern: (value: string) => /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){8,16}$/.test(value) || 'Password must contain at least one letter and one number'
                                 }
 
                             })

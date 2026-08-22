@@ -15,7 +15,7 @@ function Header() {
     { name: 'Login', active: !authStatus, slug: '/login' },
     { name: 'Sign Up', active: !authStatus, slug: '/signup' },
     { name: "All Posts", active: authStatus, slug: "/posts" },
-    { name: "Create Post", active: authStatus, slug: "/create-post" },
+    { name: "Create Post", active: authStatus, slug: "/posts/new" },
   ]
   return (
     <header>

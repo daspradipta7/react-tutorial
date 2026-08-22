@@ -1,6 +1,8 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Suspense, lazy } from 'react';
 import App from '../App';
+import { AddPost, AllPosts, Login, PostDetails } from '../pages';
+import { Signup } from '../components';
 
 // Lazy loaded features and components
 const NotFound = lazy(() => import('../pages/NotFound'));
@@ -26,7 +28,15 @@ const router = createBrowserRouter([
         path: 'login',
         element: (
           <Suspense fallback={<div>Loading login...</div>}>
-            {/* Bring back your Login component here when ready */}
+            <Login />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'signup',
+        element: (
+          <Suspense fallback={<div>Loading Signup...</div>}>
+            <Signup />
           </Suspense>
         ),
       },
@@ -39,7 +49,38 @@ const router = createBrowserRouter([
           </Suspense>
         ),
         children: [
-          // Place your protected dashboard or profile pages here
+          {
+            path: '/posts/:slug',
+            element: (
+              <Suspense fallback={<div>Loading...</div>}>
+                <PostDetails />
+              </Suspense>
+            )
+          },
+          {
+            path: '/posts/new',
+            element: (
+              <Suspense fallback={<div>Loading...</div>}>
+                <AddPost />
+              </Suspense>
+            )
+          },
+          {
+            path: '/posts/edit/:slug',
+            element: (
+              <Suspense fallback={<div>Loading...</div>}>
+                <PostDetails />
+              </Suspense>
+            )
+          },
+          {
+            path: '/posts',
+            element: (
+              <Suspense fallback={<div>Loading...</div>}>
+                <AllPosts />
+              </Suspense>
+            )
+          }
         ],
       },
       // 404 Fallback Route

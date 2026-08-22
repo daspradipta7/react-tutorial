@@ -3,13 +3,11 @@ import React, { useId } from 'react'
 function Input({
     type = 'text',
     placeholder = '',
-    value = '',
     label,
     ...props
 }: {
     type?: string;
     placeholder?: string;
-    value?: string;
     label?: string;
     [key: string]: any;
 }, ref: React.Ref<HTMLInputElement>) {
@@ -23,7 +21,6 @@ function Input({
             id={id}
             type={type}
             placeholder={placeholder}
-            value={value}
             className='w-full p-2.5 text-sm text-gray-900 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500'
             {...props}
             ref={ref}
