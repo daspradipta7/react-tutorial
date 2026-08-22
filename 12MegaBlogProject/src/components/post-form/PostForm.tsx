@@ -18,11 +18,12 @@ function PostForm({ post = null }: { post?: Post | null}) {
             slug: post?.slug || "",
             content: post?.content || "",
             status: post?.status || articleStatus.PUBLISHED,
+            image: [],
         }
     })
 
     const navigate = useNavigate()
-    const userData = useSelector((state) => state.auth.userData)
+    const userData = useSelector((state) => state.auth.user)
 
     const submit = async (data) => {
         if (post) {
@@ -46,11 +47,11 @@ function PostForm({ post = null }: { post?: Post | null}) {
             }
 
         } else {
-            const file = data.image[0] ? await PostStorageService.uploadPostFile(data.image[0]) : null
+            const file = data.image[0] ? await PostStorageService.uploadPostFile(data.image) : null
             const featuredImage = file ? file.$id: null
 
             const post = await PostService.createPost({
-                 title: data.title,
+                title: data.title,
                 slug: data.slug,
                 content: data.content,
                 status: data.status,
@@ -67,7 +68,13 @@ function PostForm({ post = null }: { post?: Post | null}) {
 
     const slugTransforms = useCallback((value: string) => {
         if (value && typeof value === "string") {
-            return value.trim().toLowerCase().replace(/^(?!-)((?:[a-z0-9]+-?)+)(?<!-)$/gm, "-")
+           return value
+            .trim()
+            .toLowerCase()
+            .replace(/[^a-z0-9\s-]/g, "") // 1. Remove all special characters except spaces and hyphens
+            .replace(/\s+/g, "-")          // 2. Replace one or more spaces with a single hyphen
+            .replace(/-+/g, "-")           // 3. Prevent multiple consecutive hyphens (---)
+            .replace(/^-+|-+$/g, "");
         }
 
         return ""
@@ -87,11 +94,11 @@ function PostForm({ post = null }: { post?: Post | null}) {
     return (
         <form onSubmit={handleSubmit(submit)} className='flex flex-wrap'>
             <div className='flex flex-wrap w-full'>
-                <div className='w-2/3'>
+                <div className='w-2/3 py-4 px-4'>
                     <div className='flex flex-col'>
                         <div className='w-full'>
                             <Input 
-                                lable="Title :"
+                                label="Title :"
                                 placeholder="Title"
                                 className="w-full"
                                 {...register("title", {
@@ -100,7 +107,7 @@ function PostForm({ post = null }: { post?: Post | null}) {
                                 })}
                             />
                             <Input 
-                                lable="Slug"
+                                label="Slug"
                                 placeholder="slug"
                                 clasName="w-full"
                                 {...register("slug",{
@@ -116,6 +123,7 @@ function PostForm({ post = null }: { post?: Post | null}) {
                                 control={control}
                                 lable="Content"
                                 defaultValue={getValues('content')}
+                                
                             />
                         </div>
                     </div>
@@ -128,11 +136,11 @@ function PostForm({ post = null }: { post?: Post | null}) {
                                 placeholder = ''
                                 label="Featured Image :"
                                 accept="image/png, image/jpg, image/jpeg, image/gif"
-                                {...register("image", { required: !post })}
+                                {...register('image', { required: !post })}
                             />
                             {post && (
                                 <img 
-                                    src={PostStorageService.getFilePreview(post?.featuredImage)}
+                                    src={PostStorageService.getFilePreview(post?.featuredImage || "")}
                                     alt={post.title}
                                     className="rounded-lg"
                                 />
@@ -144,7 +152,7 @@ function PostForm({ post = null }: { post?: Post | null}) {
                                 label: status,
                             }))}
                             label="Status"
-                            className = 'mb-4'
+                            className = 'mb-4 w-full'
                             id={useId()}
                         />
                          <Button type="submit" bgColor={post ? "bg-green-500" : undefined} className="w-full">

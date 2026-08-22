@@ -10,6 +10,8 @@ function Header() {
   const authStatus = useSelector((state: RootState) => state.auth.status && state.auth.user !== null)
   const navigate = useNavigate()
 
+  
+
   const navItems = [
     { name: 'Home', active: true, slug: '/' },
     { name: 'Login', active: !authStatus, slug: '/login' },

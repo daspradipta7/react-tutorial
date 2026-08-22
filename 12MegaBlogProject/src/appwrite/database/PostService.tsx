@@ -27,7 +27,6 @@ class PostService {
                     userId: params.userId
                 },
                 permissions: [Permission.read(Role.any())], // optional
-                transactionId: '<TRANSACTION_ID>' // optional
             });
 
             return result

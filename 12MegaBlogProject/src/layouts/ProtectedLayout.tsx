@@ -1,18 +1,38 @@
 import { Navigate, Outlet } from 'react-router-dom';
-import { Suspense } from 'react';
-import { useSelector } from 'react-redux';
+import { Suspense, useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import AuthService from '../appwrite/auth/AuthService';
+import { login } from '../store/authSlice'
 
-// Mock authentication hook
-const useAuth = () => {
-  const user = useSelector((state) => state.auth.user)
-
-  return { isAuthenticated: !!user };
-};
 
 export default function ProtectedLayout() {
-  const { isAuthenticated } = useAuth();
-  
-  if (!isAuthenticated) {
+    const dispatch = useDispatch()
+    const [isLoading, setIsLoading] = useState(true)
+    const [user, setUser] = useState<NonNullable<Awaited<ReturnType<typeof AuthService.getUserSession>>> | null>(null)
+
+    useEffect(() => {
+      const checkAuth = async () => {
+          try {
+              const userDetals = await AuthService.getUserSession()
+
+              if (userDetals) {
+                  setUser(userDetals)
+                  dispatch(login(userDetals))
+              }
+          } catch (error) {
+               setUser(null)
+          } finally {
+              setIsLoading(false)
+          }
+      }
+      checkAuth()
+    }, [])
+
+  if (isLoading) {
+    return <div className="spinner">Authenticating...</div>;
+  }
+
+  if (!user) {
     return <Navigate to="/login" replace />;
   }
 
