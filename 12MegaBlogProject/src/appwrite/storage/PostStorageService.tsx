@@ -55,7 +55,7 @@ class PostStorageService {
     }
 
     getFilePreview(fileId: string){
-        return this.storage.getFilePreview(
+        return this.storage.getFileView (
             {
                 bucketId: config.APPWRITE_BUCKET_ID,
                 fileId: fileId

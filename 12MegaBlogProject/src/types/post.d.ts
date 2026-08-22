@@ -1,10 +1,10 @@
 import type { Models } from "appwrite";
 
 interface Post extends Models.Row {
-    $id: string | null;
+    $id: string;
     title: string;
     slug: string;
-    featuredImage: string | null;
+    featuredImage: string;
     content: string;
     status: string;
     isActive: boolean;

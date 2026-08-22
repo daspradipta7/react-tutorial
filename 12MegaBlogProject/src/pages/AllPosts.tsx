@@ -9,10 +9,10 @@ function AllPosts() {
     useEffect(() => {
         const fetchPosts = async () => {
                 try {
-                    const postLists = await PostService.listPosts() as unknown as Post[]
+                    const postLists = await PostService.listPosts() as unknown as { rows: Post[] }
                     
                     if (postLists) {
-                        setAllPosts(postLists)
+                        setAllPosts(postLists?.rows)
                     }
                 } catch (error) {
                     console.error("Failed to fetch post details:", error)
@@ -22,10 +22,10 @@ function AllPosts() {
         fetchPosts()
     }, [])
   return (
-    <Container>
+    <Container className='p-2 flex flex-row flex-wrap'>
         {allPosts.map((post) => (
-            <div key={post.$id} className='p-2 w-1/4'>
-                <PostCard id={post?.$id || null} title={post.title} featuredImage={post.featuredImage} />
+            <div key={post?.$id} className='p-2'>
+                <PostCard id={post?.$id || null} title={post?.title} featuredImage={post?.featuredImage} />
             </div>
         ))}
     </Container>

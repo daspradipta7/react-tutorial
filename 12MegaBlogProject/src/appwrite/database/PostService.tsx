@@ -82,9 +82,9 @@ class PostService {
     }
 
     async listPosts(queries: string[] = [
-        Query.orderDesc("createdAt"), 
+        Query.orderDesc("$createdAt"), 
         Query.limit(10), Query.offset(0), 
-        Query.equal("status", articleStatus.PUBLISHED)]
+    ]
     ) {
         try {
             const result = await this.tablesDB.listRows({
@@ -92,6 +92,7 @@ class PostService {
                 tableId: tableConfig.ARTICLES_TABLE_ID,
                 queries
             });
+            
             return result;
         }
         catch (error) {
