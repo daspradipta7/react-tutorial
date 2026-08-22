@@ -58,18 +58,18 @@ function PostDetails() {
   return (
     postData ? (
         <Container>
-            <div className='flex w-full relative'>
+            <div className='flex w-full h-[calc(100vh-64px)] relative'>
                 <img 
                     src={PostStorageService.getFilePreview(postData?.featuredImage || "")}
                     alt={postData?.title}
                     className='rounded-xl'
                 />
                 {isAuthor && (
-                    <div className='absolute' >
-                        <Link to={`/posts/${postData?.$id}`} >
+                    <div className='absolute top-2 right-2 flex flex-row gap-2 z-10' >
+                        <Link to={`/posts/edit/${postData?.$id}`} className="w-full p-2 bg-blue-500 text-white rounded">
                             Edit
                         </Link>
-                        <Button onClick={deletePost}>
+                        <Button onClick={deletePost} className='p-2'>
                             Delete
                         </Button>
                     </div>

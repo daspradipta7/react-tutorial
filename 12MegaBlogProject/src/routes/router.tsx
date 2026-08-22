@@ -1,7 +1,7 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Suspense, lazy } from 'react';
 import App from '../App';
-import { AddPost, AllPosts, Login, PostDetails } from '../pages';
+import { AddPost, AllPosts, EditPost, Login, PostDetails } from '../pages';
 import { Signup } from '../components';
 
 // Lazy loaded features and components
@@ -69,7 +69,7 @@ const router = createBrowserRouter([
             path: '/posts/edit/:slug',
             element: (
               <Suspense fallback={<div>Loading...</div>}>
-                <PostDetails />
+                <EditPost />
               </Suspense>
             )
           },

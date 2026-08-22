@@ -11,7 +11,7 @@ import { useSelector } from 'react-redux'
 import PostService from '../../appwrite/database/PostService'
 import type { Post } from '../../types/post'
 
-function PostForm({ post = null }: { post?: Post | null}) {
+function PostForm({ post }: { post?: Post }) {
     const { handleSubmit, register, setValue, control, getValues } = useForm({
         defaultValues: {
             title: post?.title || "",
