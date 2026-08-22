@@ -27,7 +27,7 @@ function PostForm({ post }: { post?: Post }) {
 
     const submit = async (data) => {
         if (post) {
-            const file = data.image[0] ? await PostStorageService.uploadPostFile( data.image[0]): null
+            const file = data.image[0] ? await PostStorageService.uploadPostFile( data.image): null
 
             if (file && post.featuredImage) {
                 await PostStorageService.deletePostFileById(post.featuredImage)
@@ -35,11 +35,9 @@ function PostForm({ post }: { post?: Post }) {
 
             const updatedPost = await PostService.updatePost(post.$id, {
                 title: data.title,
-                slug: data.slug,
                 content: data.content,
                 status: data.status,
-                featuredImage: file ? file.$id : null,
-                updatedAt: new Date().toISOString()
+                featuredImage: file ? file.$id : post.featuredImage,
             })
 
             if (updatedPost) {
@@ -48,11 +46,10 @@ function PostForm({ post }: { post?: Post }) {
 
         } else {
             const file = data.image[0] ? await PostStorageService.uploadPostFile(data.image) : null
-            const featuredImage = file ? file.$id: null
+            const featuredImage = file ? file.$id: ""
 
             const post = await PostService.createPost({
                 title: data.title,
-                slug: data.slug,
                 content: data.content,
                 status: data.status,
                 featuredImage: featuredImage,
